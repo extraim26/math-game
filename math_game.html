@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: lightgreen;
+}
+h1 {
+    font-size: 60px;
+}
+</style>
+</head>
+<body>
+<h1>Welcome to Math Game</h1>
+<p>Try to solve the addition problems! You have 3 chances.</p>
+<p id="problem"></p>
+<input type="number" id="answer" placeholder="Enter your answer">
+<button onclick="checkAnswer()">Submit</button>
+<p id="result"></p>
+<p id="correctanswer"></p>
+
+<script>
+let chances = 3;
+let num1 = 0;
+let num2 = 0;
+let correctanswer = 0;
+
+function generateProblem() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
+    document.getElementById("problem").innerText = num1 + " + " + num2 + " = ?";
+}
+
+function checkAnswer() {
+    const userAnswer = document.getElementById("answer").value;
+    if (userAnswer === "") {
+        document.getElementById("result").innerText = "Please enter a valid number!";
+        return;
+    }
+
+    if (userAnswer == num1 + num2) {
+        correctanswer += 1;
+        document.getElementById("result").innerText = "Correct!";
+        document.getElementById("correctanswer").innerText = "You got " + correctanswer + " Correct Answers";
+        generateProblem();
+    } else {
+        chances -= 1;
+        document.getElementById("result").innerText = "Incorrect! You have " + chances + " chances left!";
+        if (chances == 0) {
+            document.getElementById("result").innerText = "Game Over! You got " + correctanswer + " correct answers.";
+            document.getElementById("answer").disabled = true;
+            document.getElementById("answer").placeholder = "Game Over";
+        }
+    }
+}
+
+generateProblem(); // Initialise the game
+</script>
+</body>
+				</html>
